@@ -68,7 +68,7 @@ if [[ -n $SSH_CONNECTION ]]; then
 else
   export EDITOR="edit"
 fi
-export VISUAL="edit"
+export VISUAL="$EDITOR"
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"

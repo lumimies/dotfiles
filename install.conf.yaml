@@ -1,7 +1,9 @@
 - clean: ['~']
 - link:
     ~/.tmux.conf: tmux.conf
-    ~/.tmux/plugins/tpm: tpm
+    ~/.tmux:
+        path: tmux
+        create: true
     ~/.zshrc: zshrc
     ~/bin:
         path: bin/

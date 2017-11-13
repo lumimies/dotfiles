@@ -1,7 +1,40 @@
-source /usr/local/share/antigen/antigen.zsh
+source $HOME/antigen.zsh
 
 HIST_STAMPS="yyyy-mm-dd"
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+
+# Directories to be prepended to $PATH
+declare -a dirs_to_prepend
+dirs_to_prepend=(
+  "/usr/bin"
+  "/usr/local/sbin"
+  "/usr/local/git/bin"
+  "/usr/local/"
+  "/usr/local/mysql/bin"
+  "/sw/bin/"
+  "$HOME/dotfiles/bin"
+  "$HOME/bin"
+  "$HOME/.rvm/bin"
+  "HOME/.local/bin"
+  "$HOME/.cargo/bin"
+  "$(brew --prefix ruby)/bin"
+  "$(brew --prefix coreutils)/libexec/gnubin" # Add brew-installed GNU core utilities bin
+  "$(brew --prefix)/share/npm/bin" # Add npm-installed package bin
+)
+
+# Explicitly configured $PATH
+PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+for dir in ${(k)dirs_to_prepend[@]}
+do
+  if [ -d ${dir} ]; then
+    # If these directories exist, then prepend them to existing PATH
+    PATH="${dir}:$PATH"
+  fi
+done
+
+unset dirs_to_prepend
+
+export PATH
 
 antigen init .antigenrc
 
@@ -52,9 +85,9 @@ antigen init .antigenrc
 
 
 export DEFAULT_USER=zohar
-export PATH="~/bin:/Users/zohar/.local/bin:/Users/zohar/.cargo/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-# setopt auto_cd
-# export cdpath=(~/Projects)
+
+setopt auto_cd
+export cdpath=(~/Projects)
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # source $ZSH/oh-my-zsh.sh

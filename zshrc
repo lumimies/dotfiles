@@ -15,7 +15,7 @@ dirs_to_prepend=(
   "$HOME/dotfiles/bin"
   "$HOME/bin"
   "$HOME/.rvm/bin"
-  "HOME/.local/bin"
+  "$HOME/.local/bin"
   "$HOME/.cargo/bin"
   "$(brew --prefix ruby)/bin"
   "$(brew --prefix coreutils)/libexec/gnubin" # Add brew-installed GNU core utilities bin

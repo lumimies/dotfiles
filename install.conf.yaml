@@ -1,5 +1,6 @@
 - clean: ['~']
 - link:
+    ~/antigen.zsh: antigen/antigen.zsh
     ~/.tmux.conf: tmux.conf
     ~/.tmux:
         path: tmux

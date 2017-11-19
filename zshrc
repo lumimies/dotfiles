@@ -17,11 +17,14 @@ dirs_to_prepend=(
   "$HOME/.rvm/bin"
   "$HOME/.local/bin"
   "$HOME/.cargo/bin"
+)
+if whence brew; then
+dirs_to_prepend+=(
   "$(brew --prefix ruby)/bin"
   "$(brew --prefix coreutils)/libexec/gnubin" # Add brew-installed GNU core utilities bin
   "$(brew --prefix)/share/npm/bin" # Add npm-installed package bin
 )
-
+fi
 # Explicitly configured $PATH
 PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 for dir in ${(k)dirs_to_prepend[@]}
@@ -121,14 +124,14 @@ alias sqlite=/usr/local/opt/sqlite/bin/sqlite3
 #zstyle :omz:plugins:ssh-agent identities id_rsa id_github dev.pem
 # zstyle :omz:plugins:ssh-agent agent-forwarding on
 
-source /usr/local/share/zsh/site-functions/_aws
+test -e /usr/local/share/zsh/site-functions/_aws && source /usr/local/share/zsh/site-functions/_aws
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-export PATH="/usr/local/sbin:$PATH"
-eval "$(thefuck --alias)"
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-#fpath=(/usr/local/share/zsh-completions $fpath)
-export PATH="$PATH:$HOME/.rvm/bin"
-export PATH="/usr/local/opt/sqlite/bin:$PATH"
+if whence thefuck; then
+  eval "$(thefuck --alias)"
+fi
+
+if whence jenv; then
+  export PATH="$HOME/.jenv/bin:$PATH"
+  eval "$(jenv init -)"
+fi

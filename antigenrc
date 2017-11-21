@@ -14,6 +14,7 @@ antigen bundle psprint/zsh-navigation-tools
 antigen bundle tymm/zsh-directory-history
 antigen bundle supercrabtree/k
 antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle webyneter/docker-aliases
 
 antigen theme agnoster
 antigen apply

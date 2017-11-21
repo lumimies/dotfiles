@@ -1,6 +1,4 @@
 - clean: ['~']
-- shell: 
-   - ['curl -L git.io/antigen > ~/antigen.zsh', Installing antigen]
 - link:
     ~/.antigenrc: antigenrc
     ~/.tmux.conf: tmux.conf

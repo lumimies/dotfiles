@@ -1,5 +1,6 @@
 HIST_STAMPS="yyyy-mm-dd"
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+DOTFILES_ROOT=$HOME/.dotfiles
 
 # Directories to be prepended to $PATH
 declare -a dirs_to_prepend
@@ -36,8 +37,8 @@ done
 unset dirs_to_prepend
 
 export PATH
-source $HOME/antigen.zsh
 
+source $DOTFILES_ROOT/antigen/antigen.zsh
 antigen init .antigenrc
 
 # Uncomment the following line to use case-sensitive completion.

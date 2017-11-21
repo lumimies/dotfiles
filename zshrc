@@ -1,5 +1,3 @@
-source $HOME/antigen.zsh
-
 HIST_STAMPS="yyyy-mm-dd"
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 
@@ -18,7 +16,7 @@ dirs_to_prepend=(
   "$HOME/.local/bin"
   "$HOME/.cargo/bin"
 )
-if whence brew; then
+if whence brew >/dev/null; then
 dirs_to_prepend+=(
   "$(brew --prefix ruby)/bin"
   "$(brew --prefix coreutils)/libexec/gnubin" # Add brew-installed GNU core utilities bin
@@ -38,6 +36,7 @@ done
 unset dirs_to_prepend
 
 export PATH
+source $HOME/antigen.zsh
 
 antigen init .antigenrc
 
@@ -127,11 +126,11 @@ alias sqlite=/usr/local/opt/sqlite/bin/sqlite3
 test -e /usr/local/share/zsh/site-functions/_aws && source /usr/local/share/zsh/site-functions/_aws
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-if whence thefuck; then
+if whence thefuck > /dev/null; then
   eval "$(thefuck --alias)"
 fi
 
-if whence jenv; then
+if whence jenv > /dev/null; then
   export PATH="$HOME/.jenv/bin:$PATH"
   eval "$(jenv init -)"
 fi

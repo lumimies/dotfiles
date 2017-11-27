@@ -39,7 +39,7 @@ unset dirs_to_prepend
 export PATH
 
 source $DOTFILES_ROOT/antigen/antigen.zsh
-antigen init .antigenrc
+antigen init $HOME/.antigenrc
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"

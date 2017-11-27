@@ -1,5 +1,10 @@
 - clean: ['~']
 - link:
+    ~/.spf13-vim-3: spf13-vim
+    ~/.vimrc: ~/.spf13-vim-3/.vimrc
+    ~/.vimrc.before: ~/.spf13-vim-3/.vimrc.before
+    ~/.vimrc.bundles: ~/.spf13-vim-3/.vimrc.bundles
+    ~/.vimrc.local: vimrc.local
     ~/.antigenrc: antigenrc
     ~/.tmux.conf: tmux.conf
     ~/.tmux:

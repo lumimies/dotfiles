@@ -5,9 +5,9 @@ function code() {
   local _code=$(whence -p code)
   # if incoming stdin via a pipe...
   if [[ -p /dev/stdin ]] ; then
-    tmpFile=$(mktemp stdin.XXXXX)
-    tee "$tmpFile" > /dev/null
-    $_code -w "$tmpFile" &
+    tmpFile=$(mktemp --suffix .stdin)
+    > "$tmpFile"
+    $_code "$@" "$tmpFile"
   else
     # otherwise, pass along any arguments to the original `code`
     $_code "$@"

@@ -25,7 +25,7 @@ dirs_to_prepend+=(
 )
 fi
 # Explicitly configured $PATH
-PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+PATH="$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 for dir in ${(k)dirs_to_prepend[@]}
 do
   if [ -d ${dir} ]; then
@@ -112,18 +112,14 @@ export VISUAL="$EDITOR"
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
+
 alias zshconfig="$VISUAL ~/.zshrc"
 alias sqlite=/usr/local/opt/sqlite/bin/sqlite3
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #zstyle :omz:plugins:ssh-agent identities id_rsa id_github dev.pem
 # zstyle :omz:plugins:ssh-agent agent-forwarding on
 
+test -e "${HOME}/.zshrc.functions" && source "${HOME}/.zshrc.functions"
 test -e /usr/local/share/zsh/site-functions/_aws && source /usr/local/share/zsh/site-functions/_aws
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
@@ -135,3 +131,6 @@ if whence jenv > /dev/null; then
   export PATH="$HOME/.jenv/bin:$PATH"
   eval "$(jenv init -)"
 fi
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"

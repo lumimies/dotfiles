@@ -1,0 +1,15 @@
+function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
+
+function code() {
+  # reference to the original `code` command
+  local _code=$(whence -p code)
+  # if incoming stdin via a pipe...
+  if [[ -p /dev/stdin ]] ; then
+    tmpFile=$(mktemp stdin.XXXXX)
+    tee "$tmpFile" > /dev/null
+    $_code -w "$tmpFile" &
+  else
+    # otherwise, pass along any arguments to the original `code`
+    $_code "$@"
+  fi
+}

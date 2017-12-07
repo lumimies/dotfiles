@@ -11,6 +11,7 @@
         path: tmux
         create: true
     ~/.zshrc: zshrc
+    ~/.zshrc.functions: zshrc.functions
     ~/bin:
         path: bin/
         create: true

@@ -5,7 +5,6 @@ DOTFILES_ROOT=$HOME/.dotfiles
 # Directories to be prepended to $PATH
 declare -a dirs_to_prepend
 dirs_to_prepend=(
-  "/usr/bin"
   "/usr/local/sbin"
   "/usr/local/git/bin"
   "/usr/local/"

@@ -4,6 +4,7 @@ antigen bundle git
 antigen bundle stack
 antigen bundle tmux
 antigen bundle command-not-found
+antigen bundle oz/safe-paste
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle hlissner/zsh-autopair
 antigen bundle tysonwolker/iterm-tab-colors

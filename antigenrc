@@ -13,6 +13,9 @@ antigen bundle psprint/zsh-cmd-architect
 antigen bundle psprint/zsh-navigation-tools
 antigen bundle supercrabtree/k
 antigen bundle webyneter/docker-aliases
+POWERLEVEL9K_MODE='nerdfont-complete'
+POWERLEVEL9K_INSTALLATION_PATH=$ANTIGEN_BUNDLES/bhilburn/powerlevel9k
+#antigen theme agnoster
+antigen theme bhilburn/powerlevel9k powerlevel9k
 
-antigen theme agnoster
 antigen apply

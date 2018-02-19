@@ -7,9 +7,9 @@ declare -a dirs_to_prepend
 dirs_to_prepend=(
   "/usr/local/sbin"
   "/usr/local/git/bin"
-  "/usr/local/"
+  "/usr/local"
   "/usr/local/mysql/bin"
-  "/sw/bin/"
+  "/sw/bin"
   "$HOME/dotfiles/bin"
   "$HOME/bin"
   "$HOME/.rvm/bin"

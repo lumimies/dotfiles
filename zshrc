@@ -1,55 +1,38 @@
-HIST_STAMPS="yyyy-mm-dd"
-ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 
-fpath+=~/.zfunc
+#zmodload zsh/zprof ## For profilin. run `zprof` to see the results
 
-source $DOTFILES_ROOT/antigen/antigen.zsh
-antigen init $HOME/.antigenrc
+export DOTFILES="$HOME/.dotfiles"
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+source "$DOTFILES/config.zsh"
 
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+POWERLEVEL9K_MODE='nerdfont-complete'
 
 
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
+if [[ -e ~/.antibody_plugins && ! ~/.antibody_plugins -ot ~/.antibody_plugins.sh  ]]; then
+  antibody bundle < ~/.antibody_plugins > ~/.antibody_plugins.sh
+fi
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
+# https://gist.github.com/ctechols/ca1035271ad134841284#gistcomment-2894219
+_zpcompinit_custom() {
+  setopt extendedglob local_options
+  autoload -Uz compinit
+  local zcd=${ZDOTDIR:-$HOME}/.zcompdump
+  local zcdc="$zcd.zwc"
+  # Compile the completion dump to increase startup speed, if dump is newer or doesn't exist,
+  # in the background as this is doesn't affect the current session
+  if [[ -f "$zcd"(#qN.m+1) ]]; then
+        compinit -i -d "$zcd"
+        { rm -f "$zcdc" && zcompile "$zcd" } &!
+  else
+        compinit -C -d "$zcd"
+        { [[ ! -f "$zcdc" || "$zcd" -nt "$zcdc" ]] && rm -f "$zcdc" && zcompile "$zcd" } &!
+  fi
+}
 
-# User configuration
+# Need this to have the right fpath when running compinit
+source <(grep '^fpath' ~/.antibody_plugins.sh)
+_zpcompinit_custom
+source <(grep -v '^fpath' ~/.antibody_plugins.sh)
 
 
 export DEFAULT_USER=zohar
@@ -70,11 +53,9 @@ export cdpath=(~/Projects)
 alias zshconfig="$VISUAL ~/.zshrc"
 alias sqlite=/usr/local/opt/sqlite/bin/sqlite3
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-#zstyle :omz:plugins:ssh-agent identities id_rsa id_github dev.pem
-# zstyle :omz:plugins:ssh-agent agent-forwarding on
+
 
 test -e "${HOME}/.zshrc.functions" && source "${HOME}/.zshrc.functions"
-test -e /usr/local/share/zsh/site-functions/_aws && source /usr/local/share/zsh/site-functions/_aws
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 if whence jenv > /dev/null; then

@@ -5,7 +5,7 @@
     ~/.vimrc.before: ~/.spf13-vim-3/.vimrc.before
     ~/.vimrc.bundles: ~/.spf13-vim-3/.vimrc.bundles
     ~/.vimrc.local: 
-    ~/.antigenrc: 
+    ~/.antibody_plugins: 
     ~/.tmux.conf: 
     ~/.tmux:
         path: tmux

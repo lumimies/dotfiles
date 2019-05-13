@@ -1,0 +1,14 @@
+robbyrussell/oh-my-zsh path:plugins/git
+robbyrussell/oh-my-zsh path:lib
+robbyrussell/oh-my-zsh path:plugins/tmux
+robbyrussell/oh-my-zsh path:plugins/per-directory-history
+oz/safe-paste
+hlissner/zsh-autopair
+zsh-users/zsh-autosuggestions
+psprint/zsh-cmd-architect
+psprint/zsh-navigation-tools
+supercrabtree/k
+webyneter/docker-aliases
+zsh-users/zsh-syntax-highlighting
+
+bhilburn/powerlevel9k

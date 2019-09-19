@@ -7,8 +7,13 @@ source "$DOTFILES/config.zsh"
 
 POWERLEVEL9K_MODE='nerdfont-complete'
 
+export ZSH_CACHE_DIR="$HOME/.cache/zsh"
+if [[ ! -e $ZSH_CACHE_DIR ]]; then
+  mkdir -p $ZSH_CACHE_DIR
+fi
 
-if [[ -e ~/.antibody_plugins && ! ~/.antibody_plugins -ot ~/.antibody_plugins.sh  ]]; then
+if [[ -e ~/.antibody_plugins && ! ~/.antibody_plugins -ot ~/.antibody_plugins.sh || ! -d "$(antibody home)" ]]; then
+  mkdir -p "$(antibody home)"
   antibody bundle < ~/.antibody_plugins > ~/.antibody_plugins.sh
 fi
 
@@ -49,7 +54,8 @@ export cdpath=(~/Projects)
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
-
+zstyle :prompt:pure:prompt:success color green
+PURE_PROMPT_SYMBOL=λ
 alias zshconfig="$VISUAL ~/.zshrc"
 alias sqlite=/usr/local/opt/sqlite/bin/sqlite3
 # alias ohmyzsh="mate ~/.oh-my-zsh"

@@ -1,14 +1,20 @@
 robbyrussell/oh-my-zsh path:plugins/git
 robbyrussell/oh-my-zsh path:lib
 robbyrussell/oh-my-zsh path:plugins/tmux
+robbyrussell/oh-my-zsh path:plugins/docker kind:fpath
+robbyrussell/oh-my-zsh path:plugins/sbt kind:fpath
+robbyrussell/oh-my-zsh path:plugins/zsh_reload
 robbyrussell/oh-my-zsh path:plugins/per-directory-history
 oz/safe-paste
+mafredri/zsh-async
 hlissner/zsh-autopair
 zsh-users/zsh-autosuggestions
+zsh-users/zsh-completions
 psprint/zsh-cmd-architect
 psprint/zsh-navigation-tools
 supercrabtree/k
 webyneter/docker-aliases
-zsh-users/zsh-syntax-highlighting
 
-bhilburn/powerlevel9k
+# Needs to be last
+zdharma/fast-syntax-highlighting
+sindresorhus/pure

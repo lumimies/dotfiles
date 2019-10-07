@@ -18,6 +18,6 @@
         create: true
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
-    - [install_antibody.sh]
+    - [./install_antibody.sh]
 
 

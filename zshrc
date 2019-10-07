@@ -5,11 +5,13 @@ export DOTFILES="$HOME/.dotfiles"
 
 source "$DOTFILES/config.zsh"
 
-POWERLEVEL9K_MODE='nerdfont-complete'
-
 export ZSH_CACHE_DIR="$HOME/.cache/zsh"
 if [[ ! -e $ZSH_CACHE_DIR ]]; then
   mkdir -p $ZSH_CACHE_DIR
+fi
+
+if ! type "antibody" > /dev/null; then
+  curl -sfL git.io/antibody | sh -s - -b /usr/local/bin
 fi
 
 if [[ -e ~/.antibody_plugins && ! ~/.antibody_plugins -ot ~/.antibody_plugins.sh || ! -d "$(antibody home)" ]]; then

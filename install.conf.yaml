@@ -1,4 +1,6 @@
-- clean: ['~']
+- clean: ['~', '~/bin']
+- shell:
+    - [git submodule update --init --recursive, Installing submodules]
 - link:
     ~/.spf13-vim-3: spf13-vim
     ~/.vimrc: ~/.spf13-vim-3/.vimrc
@@ -14,10 +16,10 @@
     ~/.zshenv:
     ~/.zshrc.functions:
     ~/bin:
-        path: bin/
+        path: bin/*
+        glob: true
         create: true
 - shell:
-    - [git submodule update --init --recursive, Installing submodules]
     - [./install_antibody.sh]
 
 

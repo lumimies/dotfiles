@@ -55,21 +55,26 @@ export cdpath=(~/Projects)
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
+if whence starship > /dev/null; then
+  eval "$(starship init zsh)"
+else
+  zstyle :prompt:pure:prompt:success color green
+  PURE_PROMPT_SYMBOL=λ
+fi
 
-zstyle :prompt:pure:prompt:success color green
-PURE_PROMPT_SYMBOL=λ
 alias zshconfig="$VISUAL ~/.zshrc"
 alias sqlite=/usr/local/opt/sqlite/bin/sqlite3
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-
-test -e "${HOME}/.zshrc.functions" && source "${HOME}/.zshrc.functions"
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-if whence jenv > /dev/null; then
-  export PATH="$HOME/.jenv/bin:$PATH"
-  eval "$(jenv init -)"
+if type exa > /dev/null; then
+  alias ls="exa --git -l"
 fi
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+test -e "${HOME}/.zshrc.functions" && source "${HOME}/.zshrc.functions"
+test -e "${HOME}/.zshrc.functions.local" && source "${HOME}/.zshrc.functions.local"
+test -e "${HOME}/.zshrc.aliases" && source "${HOME}/.zshrc.aliases"
+test -e "${HOME}/.zshrc.aliases.local" && source "${HOME}/.zshrc.aliases.local"
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+if type direnv > /dev/null; then
+  eval "$(direnv hook zsh)"
+fi

@@ -2,12 +2,11 @@
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
 - link:
-    ~/.spf13-vim-3: spf13-vim
-    ~/.vimrc: ~/.spf13-vim-3/.vimrc
-    ~/.vimrc.before: ~/.spf13-vim-3/.vimrc.before
-    ~/.vimrc.bundles: ~/.spf13-vim-3/.vimrc.bundles
+    ~/.vimrc: spf13-vim/.vimrc
+    ~/.vim: spf13-vim/.vim
     ~/.vimrc.local: 
     ~/.antibody_plugins: 
+    ~/.config/starship.toml:
     ~/.tmux.conf: 
     ~/.tmux:
         path: tmux
@@ -15,6 +14,7 @@
     ~/.zshrc: 
     ~/.zshenv:
     ~/.zshrc.functions:
+    ~/.zshrc.aliases:
     ~/bin:
         path: bin/*
         glob: true

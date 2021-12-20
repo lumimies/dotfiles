@@ -1,0 +1,41 @@
+format = """\
+    $username\
+    $hostname\
+    $directory\
+    $shlvl\
+    $all\
+    $character\
+"""
+
+[username]
+format = "[$user]($style)@"
+
+[hostname]
+format = "[$hostname]($style) "
+
+[shlvl]
+disabled = false
+
+[character]
+success_symbol = "[λ](bold green)"
+error_symbol = "[λ](bold red)"
+vicmd_symbol = "[:](bold green)"
+
+[time]
+disabled = false
+format = "[$time]($style) "
+
+[gcloud]
+disabled = true
+
+[kubernetes]
+disabled = false
+format = "[$symbol$context( \\($namespace\\))]($style) "
+
+[java]
+disabled = false
+symbol = "\ufbc8"
+style = "red"
+
+[cmd_duration]
+show_notifications = true

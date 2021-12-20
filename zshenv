@@ -21,7 +21,7 @@ dirs_to_prepend+=(
 )
 fi
 # Explicitly configured $PATH
-PATH="$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 for dir in ${(k)dirs_to_prepend[@]}
 do
   if [ -d ${dir} ]; then
@@ -47,3 +47,7 @@ export VISUAL="$EDITOR"
 if [[ -e "$HOME/.zshenv.local" ]]; then
     source "$HOME/.zshenv.local"
 fi
+
+# if type jenv > /dev/null; then
+#   eval "$(jenv init -)"
+# fi

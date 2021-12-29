@@ -4,7 +4,7 @@ DOTFILES_ROOT=$HOME/.dotfiles
 typeset -U dirs_to_prepend=(
   "/usr/local/sbin"
   "/usr/local/git/bin"
-  "/usr/local"
+  "/usr/local/bin"
   "/usr/local/mysql/bin"
   "/sw/bin"
   "$HOME/dotfiles/bin"
@@ -20,13 +20,17 @@ dirs_to_prepend+=(
   "$(brew --prefix)/share/npm/bin" # Add npm-installed package bin
 )
 fi
-# Explicitly configured $PATH
-PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+
+# Clean antibody paths
+while x=${path[(I)**/antibody/**]}; [[ $x > 0 ]]; do
+  path[$x]=()
+done
+
 for dir in ${(k)dirs_to_prepend[@]}
 do
-  if [ -d ${dir} ]; then
+  if [[ -d "${dir}" && -z "${path[(r)$dir]}" ]]; then
     # If these directories exist, then prepend them to existing PATH
-    PATH="${dir}:$PATH"
+    path=("${dir}" "${path[@]}")
   fi
 done
 

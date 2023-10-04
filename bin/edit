@@ -1,3 +1,33 @@
 #!/bin/zsh
+# If code-insiders exists, set code_cmd to it, otherwise normal code
 
-code --new-window --wait "$@"
+# Check if inside VS-code terminal
+if [ "$TERM_PROGRAM" = "vscode" ]; then
+  reuse=1
+  # Check if version includes "insider"
+  if [ "$TERM_PROGRAM_VERSION" = "*insider" ]; then
+    code_cmd="code-insiders"
+  else
+    code_cmd="code"
+  fi
+else
+  reuse=0
+  # Prefer `code-insiders` over `code` if both are installed
+  if command -v code-insiders >/dev/null 2>&1; then
+    code_cmd="code-insiders"
+  elif command -v code >/dev/null 2>&1; then
+    code_cmd="code"
+  fi
+fi
+
+# If no code command found, or connected by SSH, use vim
+if [ -z "$code_cmd" ] || [ -n "$SSH_TTY" ] || [ -n "$SSH_CLIENT" ]; then
+  vim "$@"
+  exit
+fi
+# Check if reuse
+if [ "$reuse" = "1" ]; then
+  "$code_cmd" --reuse-window --wait "$@"
+else
+  "$code_cmd" --new-window --wait "$@"
+fi

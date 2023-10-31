@@ -35,7 +35,19 @@ _zpcompinit_custom() {
         { [[ ! -f "$zcdc" || "$zcd" -nt "$zcdc" ]] && rm -f "$zcdc" && zcompile "$zcd" } &!
   fi
 }
+# Create completions dir if it doesn't exist
+if [[ ! -d "$ZSH_CACHE_DIR/completions" ]]; then
+  mkdir -p "$ZSH_CACHE_DIR/completions"
+fi
+fpath=("$ZSH_CACHE_DIR/completions" $fpath)
 
+# If homebrew installed, add homebrew completions
+if whence brew > /dev/null; then
+  fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
+  if [[ -d "$(brew --prefix)/share/zsh-completions" ]]; then
+    fpath=($(brew --prefix)/share/zsh-completions $fpath)
+  fi
+fi
 # Need this to have the right fpath when running compinit
 source <(grep '^fpath' ~/.antibody_plugins.sh)
 _zpcompinit_custom
@@ -74,6 +86,10 @@ test -e "${HOME}/.zshrc.functions.local" && source "${HOME}/.zshrc.functions.loc
 test -e "${HOME}/.zshrc.aliases" && source "${HOME}/.zshrc.aliases"
 test -e "${HOME}/.zshrc.aliases.local" && source "${HOME}/.zshrc.aliases.local"
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+if [[ -d $HOME/.pyenv ]]; then
+  eval "$(pyenv init -)"
+fi
 
 if type direnv > /dev/null; then
   eval "$(direnv hook zsh)"

@@ -1,0 +1,28 @@
+belak/zsh-utils path:utility
+getantidote/use-omz 
+zsh-users/zsh-completions kind:fpath path:src
+ohmyzsh/ohmyzsh path:lib
+ohmyzsh/ohmyzsh path:plugins/git
+ohmyzsh/ohmyzsh path:plugins/tmux
+ohmyzsh/ohmyzsh path:plugins/gcloud
+ohmyzsh/ohmyzsh path:plugins/helm
+ohmyzsh/ohmyzsh path:plugins/kubectl
+ohmyzsh/ohmyzsh path:plugins/azure
+ohmyzsh/ohmyzsh path:plugins/pyenv
+ohmyzsh/ohmyzsh path:plugins/qrcode
+ohmyzsh/ohmyzsh path:plugins/node
+ohmyzsh/ohmyzsh path:plugins/gh
+ohmyzsh/ohmyzsh path:plugins/fd kind:fpath
+
+oz/safe-paste
+reegnz/jq-zsh-plugin
+mafredri/zsh-async
+hlissner/zsh-autopair
+zsh-users/zsh-autosuggestions
+zsh-users/zsh-completions
+webyneter/docker-aliases
+QuarticCat/zsh-smartcache
+
+# Needs to be last
+zdharma-continuum/fast-syntax-highlighting
+# sindresorhus/pure

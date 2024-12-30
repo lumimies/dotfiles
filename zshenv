@@ -2,36 +2,45 @@ if [[ -z "$DOTFILES_ROOT" ]]; then
   DOTFILES_ROOT=$HOME/.dotfiles
 
   local cache_file="$HOME/.dirs_to_prepend_cache"
-  typeset -U dirs_to_prepend
+  local -aU dirs_to_prepend
   # If the cache file doesn't exist, or is over a day old, regenerate it, otherwise read it
   if [[ ! -f "$cache_file" || "$(date -r "$cache_file" +%s)" -lt "$(( $(date +%s) - 86400 ))" ]]; then
       # Otherwise, generate the directories to prepend and cache them in the file
-      dirs_to_prepend=(
+      local -U candidate_dirs
+      dirs_to_prepend=()
+      candidate_dirs=(
         "/usr/local/sbin"
         "/usr/local/git/bin"
         "/usr/local/bin"
         "/usr/local/mysql/bin"
         "/sw/bin"
-        "$HOME/dotfiles/bin"
+        "$DOTFILES_ROOT/bin"
         "$HOME/bin"
         "$HOME/.rvm/bin"
         "$HOME/.local/bin"
         "$HOME/.cargo/bin"
       )
       if whence brew >/dev/null; then
-        dirs_to_prepend+=(
+        candidate_dirs+=(
           "$(brew --prefix ruby)/bin"
           "$(brew --prefix)/share/npm/bin" # Add npm-installed package bin
         )
       fi
+      # Remove any directories that don't exist
+      for dir in "${candidate_dirs[@]}"; do
+        [[ -d "$dir" ]] && dirs_to_prepend+=("$dir")
+      done
       printf '%s\n' "${dirs_to_prepend[@]}" > "$cache_file"
   else
       # If the cache file exists, read the directories to prepend from it
       dirs_to_prepend=("${(f)$(<$cache_file)}")
   fi
 
-  # Clean antibody paths
-  while x=${path[(I)**/antibody/**]}; [[ $x > 0 ]]; do
+  # Clean antidote paths
+  while x=${path[(I)**/antidote/**]}; [[ $x > 0 ]]; do
+    path[$x]=()
+  done
+  while x=${path[(I)~/.*/**]}; [[ $x > 0 ]]; do
     path[$x]=()
   done
 

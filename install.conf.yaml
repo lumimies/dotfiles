@@ -2,11 +2,9 @@
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
 - link:
-    ~/.vimrc: spf13-vim/.vimrc
-    ~/.vim: spf13-vim/.vim
     ~/.vimrc.local: 
-    ~/.antibody_plugins: 
     ~/.config/starship.toml:
+    ~/.config/atuin/config.toml: atuin_config.toml
     ~/.tmux.conf: 
     ~/.tmux:
         path: tmux
@@ -20,6 +18,6 @@
         glob: true
         create: true
 - shell:
-    - [./install_antibody.sh]
+    - [./install_helpers.sh]
 
 

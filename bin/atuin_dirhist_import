@@ -1,0 +1,92 @@
+#!/usr/bin/env python3 
+import os
+import os.path
+import sqlite3
+import sys
+import uuid
+import subprocess
+import getpass # For username
+import tempfile
+
+def load_history(fpath):
+    lastcmd = ''
+    # Handle broken UTF-8
+    with open(fpath, 'r', errors='backslashreplace') as f:
+        for line in iter(f):
+            try:
+                while line.strip()[-1] == '\\':
+                    line += next(f)
+                line = line.lstrip(': ')
+                tss, line = line.split(':', 1)
+                _,cmd = line.split(';', 1)
+                if cmd != lastcmd: # Ignore dups, since the timestamp doesn't always have enough resolution
+                    yield {
+                        "id": uuid.uuid4().hex,        # id
+                        "timestamp": int(tss),   # timestamp
+
+                        "command": cmd.strip(),                # command
+                    }
+                    lastcmd = cmd
+            except Exception as e:
+                print(f'Error: {e}')
+
+
+
+def main(basedir):
+    """Import zsh history from a directory-based history file via histdb format"""
+    basedir = os.path.expanduser(basedir)
+    basedir = os.path.realpath(basedir)
+    print(f'Using basedir: {basedir}')
+
+    with tempfile.TemporaryDirectory(prefix="import") as tmpdir:
+        print(f'Using tmpdir: {tmpdir}')
+        db = sqlite3.connect(os.path.join(tmpdir, 'zsh-history.db'))
+        db.execute('''create table places (id integer primary key autoincrement, host text, dir text, unique(host, dir) on conflict ignore)''')
+        db.execute('''create table commands (id integer primary key autoincrement, argv text, unique(argv) on conflict ignore)''')
+        db.execute('''create table history (id integer primary key autoincrement,
+                       session int,
+                       command_id int references commands (id),
+                       place_id int references places (id),
+                       exit_status int,
+                       start_time int,
+                       duration int)''')
+
+        try:
+            cur = db.cursor()
+
+            session = 0
+            username = getpass.getuser()
+            hostname = os.uname().nodename
+            host_user = f'{hostname}:{username}'
+            total_command_count = 0
+            for dirpath, _dirnames, filenames in os.walk(basedir):
+                print(dirpath)
+                command_count = 0
+                if 'history' in filenames:
+                    cur.execute('insert into places (host, dir) values (?, ?)', (hostname, dirpath.removeprefix(basedir)))
+                    place_id = cur.lastrowid
+                    for event in load_history(os.path.join(dirpath, 'history')):
+                        command_count += 1
+                        
+                        cur.execute('insert into commands (argv) values (?)', (event['command'],))
+                        command_id = cur.execute('select id from commands where argv = ?', (event['command'],)).fetchone()[0]
+                        cur.execute('insert into history (session, command_id, place_id, exit_status, start_time, duration) values (?, ?, ?, ?, ?, ?)',
+                                    (session, command_id, place_id, 0, event['timestamp'], 0))
+                print(f'Processed {command_count} commands')
+                total_command_count += command_count
+            print(f'Processed {total_command_count} total commands')
+            db.commit()
+        except Exception as e:
+            print(f'Error: {e}')
+            db.rollback()
+            os.exit(1)
+        finally:
+            db.close()
+        os.environ["HISTDB_FILE"] = os.path.join(tmpdir, 'zsh-history.db')
+        subprocess.run("atuin import zsh-hist-db", shell=True).check_returncode()
+
+if __name__ == '__main__':
+    if len(sys.argv) != 2:
+        print(f'Usage: {sys.argv[0]} ~/.directory_history')
+        sys.exit(1)
+    main(sys.argv[1])

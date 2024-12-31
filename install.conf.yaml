@@ -4,7 +4,9 @@
 - link:
     ~/.vimrc.local: 
     ~/.config/starship.toml:
-    ~/.config/atuin/config.toml: atuin_config.toml
+    ~/.config/atuin/config.toml: 
+        path: atuin_config.toml
+        create: true
     ~/.tmux.conf: 
     ~/.tmux:
         path: tmux

@@ -1,16 +1,15 @@
-- clean: ['~', '~/bin']
+- defaults:
+    link: 
+        create: true
+- clean: ['~', '~/bin', '~/.config']
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
 - link:
     ~/.vimrc.local: 
     ~/.config/starship.toml:
-    ~/.config/atuin/config.toml: 
-        path: atuin_config.toml
-        create: true
+    ~/.config/atuin/config.toml: atuin_config.toml
     ~/.tmux.conf: 
-    ~/.tmux:
-        path: tmux
-        create: true
+    ~/.tmux: tmux
     ~/.zshrc: 
     ~/.zshenv:
     ~/.zshrc.functions:
@@ -18,8 +17,9 @@
     ~/bin:
         path: bin/*
         glob: true
-        create: true
 - shell:
-    - [./install_helpers.sh]
+    - command: ./install_helpers.sh
+      description: Installing helper scripts
+      stdout: true
 
 

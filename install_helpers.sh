@@ -10,5 +10,16 @@ if [[ ! -d ${ZDOTDIR:-~}/.atuin ]]; then
   echo "Installing atuin"
   curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
 fi
-
-sh <(curl -sS https://starship.rs/install.sh)  -f -b ~/.local/bin
+if [[ -e ~/.local/bin/starship ]]; then
+  # Check Starship version against latest
+  local latest_version=$(curl --silent "https://api.github.com/repos/starship/starship/releases/latest" | grep -Po '"tag_name": "v\K.*?(?=")')
+  # Starship --version prints something like "starship 1.21.1" on the first line and then other stuff
+  local current_version=$(starship --version | head -n 1 | cut -d ' ' -f 2)
+  if [[ $latest_version != $current_version ]]; then
+    echo "Updating starship from $current_version to $latest_version"
+    curl -fsSL https://starship.rs/install.sh | bash -s -- -f -b ~/.local/bin
+  fi
+else
+  echo "Installing starship"
+  curl -fsSL https://starship.rs/install.sh | bash -s -- -f -b ~/.local/bin
+fi

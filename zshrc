@@ -14,9 +14,9 @@ source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins
 # Support for general plugins in .txt, and local plugins in .txt.local
 if [[ ! $zsh_plugins.txt -nt $DOTFILES/zsh_plugins.txt || ! $zsh_plugins.txt -nt $DOTFILES/zsh_plugins.txt.local  ]]; then
-    cat $DOTFILES/zsh_plugins.txt(|.local) > $zsh_plugins.txt
+  # This awk script is necessary in case one of the files doesn't end in a newline
+  awk 'FNR==1 {if (NR > 1 && !prev_empty) print ""; print "# " FILENAME} {prev_empty=($0=="")?1:0} 1'  $DOTFILES/zsh_plugins.txt(|.local) > $zsh_plugins.txt
 fi
-. "$HOME/.atuin/bin/env"
 antidote load
 
 
@@ -41,12 +41,6 @@ else
   PURE_PROMPT_SYMBOL=λ
 fi
 
-alias zshconfig="$VISUAL ~/.zshrc"
-alias sqlite=/usr/local/opt/sqlite/bin/sqlite3
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-if type eza > /dev/null; then
-  alias ls="eza --git -l --color-scale --icons"
-fi
 
 for file in ".zshrc.functions" \
   ".zshrc.functions.local" \
@@ -60,15 +54,21 @@ if [[ -d $HOME/.pyenv ]]; then
   smartcache eval pyenv init -
 fi
 
-if type direnv > /dev/null; then
+if (( $+commands[direnv] )) ; then
   smartcache eval direnv hook zsh
 fi
 
-if type pnpm > /dev/null && pnpm  &>/dev/null ; then
+if (( $+commands[pnpm] )) && pnpm  &>/dev/null ; then
   smartcache eval pnpm completion zsh
 fi
-if [[ $+commands[atuin] -eq 1 ]] ; then
-  smartcache eval atuin init zsh
+
+if [[ -e "$HOME/.atuin/bin/env" ]]; then
+  . "$HOME/.atuin/bin/env"
+  smartcache eval atuin init zsh --disable-up-arrow
   smartcache eval atuin gen-completions --shell zsh
 fi
 
+if [[ -d $HOME/.rvm ]]; then
+  # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+  export PATH="$PATH:$HOME/.rvm/bin"
+fi

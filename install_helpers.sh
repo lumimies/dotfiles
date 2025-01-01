@@ -1,4 +1,4 @@
-#!/bin/env zsh
+#!/usr/bin/env zsh
 
 # Don't clone if already exists
 if [[ ! -d ${ZDOTDIR:-~}/.antidote ]]; then

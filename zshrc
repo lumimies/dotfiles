@@ -13,8 +13,8 @@ fi
 source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins
 # Support for general plugins in .txt, and local plugins in .txt.local
-if [[ ! $zsh_plugins.txt -nt $DOTFILES/zsh_plugins.txt || ! $zsh_plugins.txt -nt $DOTFILES/.zsh_plugins.txt.local  ]]; then
-    cat $DOTFILES/zsh_plugins.txt $DOTFILES/.zsh_plugins.txt.local > $zsh_plugins.txt
+if [[ ! $zsh_plugins.txt -nt $DOTFILES/zsh_plugins.txt || ! $zsh_plugins.txt -nt $DOTFILES/zsh_plugins.txt.local  ]]; then
+    cat $DOTFILES/zsh_plugins.txt(|.local) > $zsh_plugins.txt
 fi
 . "$HOME/.atuin/bin/env"
 antidote load

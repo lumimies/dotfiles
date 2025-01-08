@@ -44,7 +44,7 @@ setopt HIST_VERIFY
 setopt HIST_EXPIRE_DUPS_FIRST
 # dont ask for confirmation in rm globs*
 setopt RM_STAR_SILENT
-
+setopt EXTENDED_GLOB
 setopt INTERACTIVE_COMMENTS
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search

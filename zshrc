@@ -42,12 +42,10 @@ else
 fi
 
 
-for file in ".zshrc.functions" \
-  ".zshrc.functions.local" \
-  ".zshrc.aliases" \
-  ".zshrc.aliases.local" \
-  ".iterm2_shell_integration.zsh"; do
-  test -e "${HOME}/$file" && source "${HOME}/$file"
+for file in "$HOME"/.zshrc.(functions|aliases)(|.local|.(#i)$(hostname -s))(#qN) \
+  "$HOME/.iterm2_shell_integration.zsh"(#qN)
+  do
+  source "$file"
 done
 
 if [[ -d $HOME/.pyenv ]]; then

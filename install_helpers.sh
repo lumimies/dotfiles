@@ -12,14 +12,14 @@ if [[ ! -d ${ZDOTDIR:-~}/.atuin ]]; then
 fi
 if [[ -e ~/.local/bin/starship ]]; then
   # Check Starship version against latest
-  local latest_version=$(curl --silent "https://api.github.com/repos/starship/starship/releases/latest" | grep -Po '"tag_name": "v\K.*?(?=")')
+  local latest_version=$(curl --silent "https://api.github.com/repos/starship/starship/releases/latest" | perl -nle 'print $1 if /"tag_name": "v(\d+\.\d+\.\d+)"/')
   # Starship --version prints something like "starship 1.21.1" on the first line and then other stuff
   local current_version=$(starship --version | head -n 1 | cut -d ' ' -f 2)
   if [[ $latest_version != $current_version ]]; then
     echo "Updating starship from $current_version to $latest_version"
-    curl -fsSL https://starship.rs/install.sh | bash -s -- -f -b ~/.local/bin
+    curl -fsSL https://starship.rs/install.sh | sh -s -f -b ~/.local/bin
   fi
 else
   echo "Installing starship"
-  curl -fsSL https://starship.rs/install.sh | bash -s -- -f -b ~/.local/bin
+  curl -fsSL https://starship.rs/install.sh | sh -s -f -b ~/.local/bin
 fi

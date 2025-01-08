@@ -4,8 +4,13 @@
 - clean: ['~', '~/bin', '~/.config']
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
+- shell: 
+    - command: ./adopt_locals.sh
+      description: Adopting local files
+      stdout: true
+      stderr: true
+
 - link:
-    ~/.vimrc.local: 
     ~/.config/starship.toml:
     ~/.config/atuin/config.toml: atuin_config.toml
     ~/.tmux.conf: 
@@ -17,9 +22,14 @@
     ~/bin:
         path: bin/*
         glob: true
+    ~/:
+        path: '*.local'
+        glob: true
+        prefix: '.'
 - shell:
     - command: ./install_helpers.sh
       description: Installing helper scripts
       stdout: true
+      stderr: true
 
 

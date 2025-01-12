@@ -8,7 +8,8 @@ export ZSH_CACHE_DIR="$HOME/.cache/zsh"
 if [[ ! -e $ZSH_CACHE_DIR ]]; then
   mkdir -p $ZSH_CACHE_DIR
 fi
-
+unset ZSH # Needed when upgrading OMZ when switching to friendly names
+zstyle ':antidote:bundle' use-friendly-names 'yes'
 # Load Antidote
 source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins
@@ -70,3 +71,5 @@ if [[ -d $HOME/.rvm ]]; then
   # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
   export PATH="$PATH:$HOME/.rvm/bin"
 fi
+
+export LESS="--mouse --use-color --quit-if-one-screen --ignore-case --LONG-PROMPT --RAW-CONTROL-CHARS"

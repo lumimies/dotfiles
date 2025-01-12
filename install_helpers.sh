@@ -17,9 +17,9 @@ if [[ -e ~/.local/bin/starship ]]; then
   local current_version=$(starship --version | head -n 1 | cut -d ' ' -f 2)
   if [[ $latest_version != $current_version ]]; then
     echo "Updating starship from $current_version to $latest_version"
-    curl -fsSL https://starship.rs/install.sh | sh -s -f -b ~/.local/bin
+    curl -fsSL https://starship.rs/install.sh | sh -s -- -f --bin-dir ~/.local/bin
   fi
 else
   echo "Installing starship"
-  curl -fsSL https://starship.rs/install.sh | sh -s -f -b ~/.local/bin
+  curl -fsSL https://starship.rs/install.sh | sh -s -- -f --bin-dir ~/.local/bin
 fi

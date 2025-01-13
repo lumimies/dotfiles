@@ -13,8 +13,9 @@ ohmyzsh/ohmyzsh path:plugins/qrcode
 ohmyzsh/ohmyzsh path:plugins/node
 ohmyzsh/ohmyzsh path:plugins/gh
 ohmyzsh/ohmyzsh path:plugins/fd kind:fpath
+ohmyzsh/ohmyzsh path:plugins/safe-paste
+ohmyzsh/ohmyzsh path:plugins/iterm2
 
-oz/safe-paste
 reegnz/jq-zsh-plugin
 mafredri/zsh-async
 hlissner/zsh-autopair

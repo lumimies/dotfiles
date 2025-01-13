@@ -10,6 +10,7 @@ if [[ ! -e $ZSH_CACHE_DIR ]]; then
 fi
 unset ZSH # Needed when upgrading OMZ when switching to friendly names
 zstyle ':antidote:bundle' use-friendly-names 'yes'
+zstyle :omz:plugins:iterm2 shell-integration yes
 # Load Antidote
 source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins
@@ -43,8 +44,7 @@ else
 fi
 
 
-for file in "$HOME"/.zshrc.(functions|aliases)(|.local|.(#i)$(hostname -s))(#qN) \
-  "$HOME/.iterm2_shell_integration.zsh"(#qN)
+for file in "$HOME"/.zshrc.(functions|aliases)(|.local|.(#i)$(hostname -s))(#qN)
   do
   source "$file"
 done

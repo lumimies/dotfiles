@@ -13,6 +13,7 @@
 - link:
     ~/.config/starship.toml:
     ~/.config/atuin/config.toml: atuin_config.toml
+    ~/.config/kitty: kitty
     ~/.tmux.conf: 
     ~/.tmux: tmux
     ~/.zshrc: 

@@ -3,5 +3,5 @@ alias gunwip='git log -n 1 | grep -q -c "\-\-wip\-\-" && git reset HEAD~1'
 alias sqlite="sqlite3"
 
 if (( $+commands[eza] )) ; then
-  alias ls="eza --git -l --color-scale --icons=always"
+  alias ll="eza --git -l --color-scale --icons=auto --hyperlink"
 fi

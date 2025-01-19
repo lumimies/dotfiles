@@ -73,3 +73,13 @@ if [[ -d $HOME/.rvm ]]; then
 fi
 
 export LESS="--mouse --use-color --quit-if-one-screen --ignore-case --LONG-PROMPT --RAW-CONTROL-CHARS"
+
+export EGET_BIN=$HOME/.local/bin
+
+if [[ -e "$HOME/.config/broot/launcher/bash/br" ]]; then
+  source "$HOME/.config/broot/launcher/bash/br"
+fi
+
+if (( $+commands[pkgx] )) ; then
+  smartcache eval pkgx dev --shellcode
+fi

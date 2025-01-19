@@ -17,6 +17,7 @@ if [[ -z "$DOTFILES_ROOT" ]]; then
         "$DOTFILES_ROOT/bin"
         "$HOME/bin"
         "$HOME/.rvm/bin"
+        "$HOME/go/bin"
         "$HOME/.local/bin"
         "$HOME/.cargo/bin"
       )

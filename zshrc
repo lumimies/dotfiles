@@ -64,7 +64,7 @@ fi
 if [[ -e "$HOME/.atuin/bin/env" ]]; then
   . "$HOME/.atuin/bin/env"
   smartcache eval atuin init zsh --disable-up-arrow
-  smartcache eval atuin gen-completions --shell zsh
+  smartcache comp atuin gen-completions --shell zsh
 fi
 
 if [[ -d $HOME/.rvm ]]; then

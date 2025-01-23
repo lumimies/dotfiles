@@ -76,8 +76,8 @@ export LESS="--mouse --use-color --quit-if-one-screen --ignore-case --LONG-PROMP
 
 export EGET_BIN=$HOME/.local/bin
 
-if [[ -e "$HOME/.config/broot/launcher/bash/br" ]]; then
-  source "$HOME/.config/broot/launcher/bash/br"
+if (( $+commands[broot] )); then
+  smartcache eval broot --print-shell-function zsh
 fi
 
 if (( $+commands[pkgx] )) ; then

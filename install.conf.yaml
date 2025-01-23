@@ -33,5 +33,7 @@
       description: Installing helper scripts
       stdout: true
       stderr: true
+    - command: type broot && broot --set-install-state installed
+      description: Setting broot install state
 
 

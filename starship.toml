@@ -38,7 +38,7 @@ symbol = "\ufbc8"
 style = "red"
 
 [cmd_duration]
-show_notifications = true
+show_notifications = false
 
 [ruby]
 style = "bold blue"

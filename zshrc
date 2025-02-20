@@ -28,15 +28,17 @@ export DEFAULT_USER=zohar
 setopt auto_cd
 export cdpath=(~/Projects)
 # export MANPATH="/usr/local/man:$MANPATH|
-DISABLE_AUTO_TITLE="true"
-function set_win_title(){
-  echoti tsl
-  starship module hostname | ansifilter
-  starship module directory | ansifilter
-  echoti fsl
-}
+if (( $+commands[ansifilter] )); then
+  DISABLE_AUTO_TITLE="true"
+  function set_win_title(){
+    title "$(
+      (starship module hostname;
+      starship module directory) | ansifilter
+    )"
+  }
 
-precmd_functions+=(set_win_title)
+  precmd_functions+=(set_win_title)
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -89,4 +91,10 @@ fi
 
 if (( $+commands[pkgx] )) ; then
   smartcache eval pkgx dev --shellcode
+fi
+if test -n "$KITTY_INSTALLATION_DIR"; then
+    export KITTY_SHELL_INTEGRATION="enabled"
+    autoload -Uz -- "$KITTY_INSTALLATION_DIR"/shell-integration/zsh/kitty-integration
+    kitty-integration
+    unfunction kitty-integration
 fi

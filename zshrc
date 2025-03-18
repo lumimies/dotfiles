@@ -10,7 +10,9 @@ if [[ ! -e $ZSH_CACHE_DIR ]]; then
 fi
 unset ZSH # Needed when upgrading OMZ when switching to friendly names
 zstyle ':antidote:bundle' use-friendly-names 'yes'
-
+# Fix for slow pasting
+# See https://github.com/zsh-users/zsh-autosuggestions/issues/238#issuecomment-921932705
+zstyle :bracketed-paste-magic active-widgets '.self-*'
 # Load Antidote
 source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins
